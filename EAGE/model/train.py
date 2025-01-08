@@ -3,7 +3,6 @@ import pandas as pd
 import torch
 from torch import nn
 from tqdm import tqdm
-from model.detect import detect
 from model import device
 from model.AT_AE import  AT_AE
 import random
@@ -74,7 +73,6 @@ def train(dataset,n_epochs,batch_size,lr ,b1 ,b2 ,seed,hidden_dim , GAT_heads , 
 
     ind_test=bbb
 
-
     at_ae.train()
 
     print("*"*10+"training"+"*"*10)
@@ -126,7 +124,6 @@ def train(dataset,n_epochs,batch_size,lr ,b1 ,b2 ,seed,hidden_dim , GAT_heads , 
         train_loss_epoch=train_loss / train_num
         print(f"[Epoch {epoch+1:{len(str(n_epochs))}}/{n_epochs}] "
               f"[loss: {train_loss_epoch:3f}]")
-        detect(at_ae, dataset, batch_size, ind_test,threshold)
         at_ae.train()
         torch.save(at_ae.state_dict(), f"large_3_4-{epoch + 1}-model.pth")
         optimizer.zero_grad()
